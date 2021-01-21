@@ -2,32 +2,35 @@ plugins {
     id 'java'
     id 'com.github.johnrengelman.shadow' version '5.2.0'
 }
-
 apply plugin: 'com.github.johnrengelman.shadow'
-
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
-
 group 'com.stingray'
 version '1.0-SNAPSHOT'
-
 sourceCompatibility = 1.8
 jar.enabled = false
+repositories {
+   flatDir {
+       dirs 'bluecove'
+   }
+}
 
+dependencies {
+   implementation name: 'bluecove-gpl-2.1.1-SNAPSHOT'
+   implementation name: 'bluecove-2.1.1-SNAPSHOT'
+}
 repositories {
     mavenCentral()
     google()
 }
-
 dependencies {
     compile 'com.beust:jcommander:1.69'
     compile 'com.googlecode.soundlibs:jorbis:0.0.17-3'
     compile 'com.googlecode.soundlibs:tritonus-share:0.3.7-3'
     compile 'de.jarnbjo:j-ogg-all:1.0.0'
-    compile 'net.sf.bluecove:bluecove:2.1.0'
-    compile 'net.sf.bluecove:bluecove-gpl:2.1.0'
+    compile 'bluecove:bluecove-2.1.1-SNAPSHOT'
+    compile 'bluecove-gpl:bluecove-gpl-2.1.1-SNAPSHOT'
     testCompile group: 'junit', name: 'junit', version: '4.12'
 }
-
 task('createJar', type: ShadowJar) {
     dependsOn 'compileJava'
     outputs.upToDateWhen {
